@@ -17,7 +17,9 @@ public class SBT<T extends Comparable<T>> {
         return root == null;
     }
 
-    ;
+    public void deleteAll() {
+        root = null;
+    }
     
     public void add(T el) {
         Node<T> p = new Node(el);
@@ -192,13 +194,15 @@ public class SBT<T extends Comparable<T>> {
         if (tmp == null) {
             return 0;
         }
-        return 1 + numberLeaf(tmp.left) + numberLeaf(tmp.right);
+        return 1 + numberNode(tmp.left) + numberNode(tmp.right);
     }
     
-    public Node ArrToSBT(T[] arr) {
+    public void ArrToSBT(T[] arr) {
         arr = sortArr(arr);
         System.out.println(Arrays.toString(arr));
-        return SortArrToSBT(arr, 0, numberNode(root));
+        deleteAll();
+        root = SortArrToSBT(arr, 0, arr.length - 1);
+        //return SortArrToSBT(arr, 0, numberNode(root));
     }
 
 //    https://www.geeksforgeeks.org/sorted-array-to-balanced-bst/
@@ -211,9 +215,9 @@ public class SBT<T extends Comparable<T>> {
         int mid = (begin + end) / 2;
         
         Node node = new Node(arr[mid]);
-        
-        node.left = SortArrToSBT(arr, begin, end - 1);        
-        node.right = SortArrToSBT(arr, begin + 1, end);
+
+        node.left = SortArrToSBT(arr, begin, mid - 1);        
+        node.right = SortArrToSBT(arr, mid + 1, end);
         
         return node;
     }
