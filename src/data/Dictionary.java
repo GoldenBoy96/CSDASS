@@ -1,0 +1,95 @@
+package data;
+
+import datastructure.BST;
+import datastructure.Node;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+import tool.Tool;
+
+/**
+ *
+ * @author tri
+ */
+public class Dictionary {
+
+    private Scanner sc = new Scanner(System.in);
+
+    private BST<Vocabulary> b = new BST();
+    
+    public void searchVoca(Vocabulary key) {
+        if (b.search(key) != null) System.out.println("Existed!");
+                else System.out.println("Not existed!");
+    }
+    
+    public boolean isVocaExisted(String word) {
+        if (b.search(new Vocabulary(word, "")) == null) return false;
+        return true;
+    }
+    
+    
+    //cần thêm điều kiện kiểm tra xem đã có từ chưa
+    public void addVoca(String word, String meaning) {
+        if (isVocaExisted(word)) {
+            System.out.println("Vocabulary is existed!");
+            return;
+        }
+        b.add(new Vocabulary(word, meaning));
+    }
+    
+    public void printAll() {
+        
+        System.out.println(b.toString());
+
+    }
+
+    public void readFile(String fileName) {   //done
+        try {
+            File f = new File(fileName);
+            if (!f.exists()) {
+                f.createNewFile();
+            }
+            Scanner read = new Scanner(f);
+            while (read.hasNextLine()) {
+                String line = read.nextLine();
+                if (line.trim() != "") {
+                    String data[] = line.split("|");
+                    String word, meaning;
+                    word = data[0].toString();
+                    meaning = data[1].toString();
+                    Vocabulary v = new Vocabulary(word, meaning);
+//                    if (!b.checkVoca(v)) {
+//                        b.add(v);
+//                    }
+                }
+            }
+            read.close();
+        } catch (Exception e) {
+            System.out.println("An error occured when read file!");
+            e.printStackTrace();
+        }
+    }
+
+    public void writeFile(String fileName) {         //almost done, need further test
+
+        try {
+            File myFile = new File(fileName);
+            myFile.createNewFile();
+
+            FileWriter myWriter = new FileWriter(fileName);
+//            Vocabulary arr[] = b.BSTToArray();
+//            for (int i = 0; i < arr.length; i++) {
+//                String data = arr[i].word + "|" + arr[i].meaning + "\n";
+//                myWriter.write(data);
+//            }
+
+            myWriter.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred when saving file!");
+            e.printStackTrace();
+        }
+    }
+
+
+}

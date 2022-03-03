@@ -1,5 +1,5 @@
 
-package assignment;
+package datastructure;
 
 public class Node<T extends Comparable> {
     T val;
