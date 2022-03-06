@@ -39,8 +39,8 @@ public class Dictionary {
     }
     
     public void printAll() {
-        b.LNR(b.root);
-        //System.out.println(b.toString());
+        //b.LNR(b.root);
+        System.out.println(b.toString());
 
     }
 

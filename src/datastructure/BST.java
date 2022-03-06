@@ -1,6 +1,7 @@
 package datastructure;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BST<T extends Comparable<T>> {
 
@@ -39,8 +40,9 @@ public class BST<T extends Comparable<T>> {
                 }
                 tmp = tmp.right;
             }
+            if (!isBalanced(root)) balanceTree();
         }
-        if (!isBalanced(root)) balanceTree();
+        //if (!isBalanced(root)) balanceTree();
     }
 
     public Node rightMost(Node tmp) {
@@ -66,10 +68,10 @@ public class BST<T extends Comparable<T>> {
     private Node rightMostOf(T val) {
         Node tmp = root;
         while (tmp.val.compareTo(val) != 0 && tmp != null) {
-            if (tmp.val.compareTo(val) == 1) {
+            if (tmp.val.compareTo(val) > 0) {
                 tmp = tmp.left;
             }
-            if (tmp.val.compareTo(val) == -1) {
+            if (tmp.val.compareTo(val) < 0) {
                 tmp = tmp.right;
             }
         }
@@ -80,10 +82,10 @@ public class BST<T extends Comparable<T>> {
     public Node leftMostOf(T val) {
         Node tmp = root;
         while (tmp.val.compareTo(val) != 0 && tmp != null) {
-            if (tmp.val.compareTo(val) == -1) {
+            if (tmp.val.compareTo(val) < 0) {
                 tmp = tmp.left;
             }
-            if (tmp.val.compareTo(val) == 1) {
+            if (tmp.val.compareTo(val) > 0) {
                 tmp = tmp.right;
             }
         }
@@ -182,6 +184,7 @@ public class BST<T extends Comparable<T>> {
     public ArrayList toArray() {
         ArrayList<T> tmp = new ArrayList<>();
         toArray(root, tmp);
+        System.out.println(tmp.toString());
         return tmp;
     }
     
@@ -193,12 +196,15 @@ public class BST<T extends Comparable<T>> {
         arr.add((T)tmp.val); 
         toArray(tmp.right,arr); 
         
+        
+        
         return arr;
         
     }
     
     public void balanceTree() {
         ArrayList<T> tmp = toArray();
+        tmp = sortArr(tmp);
         ArrToSBT(tmp);
     }
     

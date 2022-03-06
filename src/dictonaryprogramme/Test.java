@@ -24,7 +24,7 @@ public class Test {
         
         D.readFile("D:\\Desktop\\assignment\\Vocabulary.txt");
         //D.addVoca("coconut", "gà");
-        //D.printAll();
+        D.printAll();
         D.b.printTrack(new Vocabulary("access", ""), new Vocabulary("adequate", ""));
         D.searchVoca("banana");
         //D.writeFile("D:\\Desktop\\assignment\\Vocabulary.txt");
