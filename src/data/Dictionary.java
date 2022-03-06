@@ -1,13 +1,11 @@
 package data;
 
 import datastructure.BST;
-import datastructure.Node;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import tool.Tool;
 
 /**
  *
@@ -17,10 +15,11 @@ public class Dictionary {
 
     private Scanner sc = new Scanner(System.in);
 
-    private BST<Vocabulary> b = new BST();
+    public BST<Vocabulary> b = new BST();
     
-    public void searchVoca(Vocabulary key) {
-        if (b.search(key) != null) System.out.println("Existed!");
+    public void searchVoca(String key) {
+//        Vocabulary tmp = b.search(new Vocabulary(key, ""));
+        if (b.search(new Vocabulary(key, "")) != null) System.out.println("Existed!");
                 else System.out.println("Not existed!");
     }
     
@@ -40,8 +39,8 @@ public class Dictionary {
     }
     
     public void printAll() {
-        
-        System.out.println(b.toString());
+        b.LNR(b.root);
+        //System.out.println(b.toString());
 
     }
 
@@ -92,6 +91,6 @@ public class Dictionary {
             e.printStackTrace();
         }
     }
-
+    
 
 }

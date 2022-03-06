@@ -6,6 +6,7 @@
 package dictonaryprogramme;
 
 import data.Dictionary;
+import data.Vocabulary;
 
 /**
  *
@@ -15,13 +16,17 @@ public class Test {
 
     public static void main(String[] args) {
         Dictionary D = new Dictionary();
-//        D.addVoca("apple", "táo");
+        
 //        D.addVoca("banana", "chuối");
 //        D.addVoca("coconut", "dừa");
+//        D.addVoca("apple", "táo");
+//        
+        
         D.readFile("D:\\Desktop\\assignment\\Vocabulary.txt");
         //D.addVoca("coconut", "gà");
-        D.printAll();
-        
-        D.writeFile("D:\\Desktop\\assignment\\Vocabulary.txt");
+        //D.printAll();
+        D.b.printTrack(new Vocabulary("access", ""), new Vocabulary("adequate", ""));
+        D.searchVoca("banana");
+        //D.writeFile("D:\\Desktop\\assignment\\Vocabulary.txt");
     }
 }

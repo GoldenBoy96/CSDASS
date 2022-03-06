@@ -34,6 +34,7 @@ public class Vocabulary implements Comparable<Vocabulary> {
         System.out.printf("%-20s|%s\n", word, meaning);
     }
 
+    @Override
     public int compareTo(Vocabulary that) {
         return this.word.compareToIgnoreCase(that.word);
     }

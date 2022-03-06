@@ -197,6 +197,10 @@ public class BST<T extends Comparable<T>> {
         
     }
     
+    public void balanceTree() {
+        ArrayList<T> tmp = toArray();
+        ArrToSBT(tmp);
+    }
     
     public boolean isBalanced(Node node) {
         int lh; 
@@ -209,12 +213,9 @@ public class BST<T extends Comparable<T>> {
         lh = height(node.left);
         rh = height(node.right);
  
-        if (Math.abs(lh - rh) <= 1
-            && isBalanced(node.left)
-            && isBalanced(node.right))
-            return true;
- 
-        return false;
+        return Math.abs(lh - rh) <= 1
+                && isBalanced(node.left)
+                && isBalanced(node.right);
     }
     
     public int height() {
@@ -236,10 +237,85 @@ public class BST<T extends Comparable<T>> {
         }
     }
     
-    public void balanceTree() {
-        ArrayList<T> tmp = toArray();
-        ArrToSBT(tmp);
+    
+    
+    public void printTrack(T Tsrc, T Tdest) {
+        if (isEmpty()) {
+            System.out.println("Empty tree.");
+            return;
+        }
+        if (Tsrc == null || Tdest == null) {
+            System.out.println("Error.");
+        } else {
+            Node<T> src = new Node<>(Tsrc);
+            Node<T> dest = new Node<>(Tdest);
+            if (src.val.compareTo(dest.val) == 0) {
+                System.out.println(src.val);
+            } else {
+                ArrayList<T> Psrc = new ArrayList<>();
+                ArrayList<T> Pdest = new ArrayList<>();
+                Node<T> tmp = root;
+                //Lưu lại đường đi từ root tới điểm source
+                while (tmp != null && tmp.val.compareTo(src.val) != 0) {
+                    if (src.val.compareTo(tmp.val) > 0) {
+                        Psrc.add(tmp.val);
+                        tmp = tmp.right;
+                    } else {
+                        Psrc.add(tmp.val);
+                        tmp = tmp.left;
+                    }
+                }
+
+                if (tmp == null) {
+                    System.out.println(src.val.toString() + " does not exist.");
+                    return;
+                } else {
+                    Psrc.add(tmp.val);
+                }
+                //Lưu lại đường đi từ root tới điểm destination
+                tmp = root;
+                while (tmp != null && tmp.val.compareTo(dest.val) != 0) {
+                    if (dest.val.compareTo(tmp.val) > 0) {
+                        Pdest.add(tmp.val);
+                        tmp = tmp.right;
+                    } else {
+                        Pdest.add(tmp.val);
+                        tmp = tmp.left;
+                    }
+                }
+
+                if (tmp == null) {
+                    System.out.println(dest.val.toString() + " does not exist.");
+                    return;
+                } else {
+                    Pdest.add(tmp.val);
+                }
+                //Tìm điểm chung đầu tiên của đường đi tới 2 điểm 
+                int posi = -1, posj = -1;
+                for (int i = Psrc.size() - 1; i >= 0 && posi == -1; i--) {
+                    for (int j = Pdest.size() - 1; j >= 0; j--) {
+                        if (Psrc.get(i).compareTo(Pdest.get(j)) == 0) {
+                            posi = i;
+                            posj = j;
+                            break;
+                        }
+                    }
+                }
+                // In ra đường đi
+                
+                for (int i = Psrc.size() - 1; i > posi; i--) {
+                    System.out.print(Psrc.get(i).toString() + " => ");
+                }
+
+                for (int j = posj; j < Pdest.size() - 1; j++) {
+                    System.out.print(Pdest.get(j).toString() + " => ");
+                }
+                System.out.println(Pdest.get(Pdest.size() - 1).toString());
+
+            }
+        }
     }
+    
     @Override
     public String toString() {
         ArrayList<T> arr = (ArrayList<T>) toArray();
