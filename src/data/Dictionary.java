@@ -5,6 +5,7 @@ import datastructure.Node;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import tool.Tool;
 
@@ -54,14 +55,14 @@ public class Dictionary {
             while (read.hasNextLine()) {
                 String line = read.nextLine();
                 if (line.trim() != "") {
-                    String data[] = line.split("|");
+                    String data[] = line.split(";");
                     String word, meaning;
                     word = data[0].toString();
                     meaning = data[1].toString();
                     Vocabulary v = new Vocabulary(word, meaning);
-//                    if (!b.checkVoca(v)) {
-//                        b.add(v);
-//                    }
+                    if (!isVocaExisted(word)) {
+                        b.add(v);
+                    }
                 }
             }
             read.close();
@@ -78,11 +79,12 @@ public class Dictionary {
             myFile.createNewFile();
 
             FileWriter myWriter = new FileWriter(fileName);
-//            Vocabulary arr[] = b.BSTToArray();
-//            for (int i = 0; i < arr.length; i++) {
-//                String data = arr[i].word + "|" + arr[i].meaning + "\n";
-//                myWriter.write(data);
-//            }
+            //Vocabulary arr[] = (Vocabulary[]) b.toArray().toArray();
+            ArrayList<Vocabulary> arr = b.toArray();
+            for (int i = 0; i < arr.size(); i++) {
+                String data = arr.get(i).word + ";" + arr.get(i).meaning + "\n";
+                myWriter.write(data);
+            }
 
             myWriter.close();
         } catch (IOException e) {

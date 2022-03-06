@@ -1,9 +1,6 @@
 package datastructure;
 
-import static java.lang.String.format;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class BST<T extends Comparable<T>> {
 
@@ -45,52 +42,6 @@ public class BST<T extends Comparable<T>> {
         }
         if (!isBalanced(root)) balanceTree();
     }
-
-
-
-
-
-    
-
-//    private boolean isLeaf(Node input) {
-//        return input.left == null && input.right == null;
-//    }
-
-//    public void printLeaf(Node tmp) {
-//        if (tmp != null) {
-//            if (isLeaf(tmp)) {
-//                System.out.print(tmp.val + " ");
-//            }
-//            printLeaf(tmp.left);
-//            printLeaf(tmp.right);
-//        }
-//    }
-//
-//    public int numberLeaf(Node tmp) {
-//        if (tmp == null) {
-//            return 0;
-//        }
-//        if (isLeaf(tmp)) {
-//            return 1;
-//        };
-//        return numberLeaf(tmp.left) + numberLeaf(tmp.right);
-//    }
-
-    
-//
-//    public int heightTree(Node tmp) {
-//        if (tmp == null) {
-//            return -1;
-//        } else if (tmp.left == null && tmp.right == null) {
-//            return 0;
-//        } else if (tmp.left != null && tmp.right != null) {
-//            return max(heightTree(tmp.left), heightTree(tmp.right)) + 1;
-//        } else if (tmp.left == null) {
-//            return 1 + heightTree(tmp.right);
-//        } else {
-//            return 1 + heightTree(tmp.left);
-//        }
-//    }
 
     public Node rightMost(Node tmp) {
         if (tmp.left != null) {
@@ -172,15 +123,10 @@ public class BST<T extends Comparable<T>> {
     }
     
     private Node searchNode(Node root, T key) {
-        // Base Cases: root is null or key is present at root
         if (root==null || root.val.compareTo(key) == 0)
             return root;
-
-        // Key is greater than root's key
         if (root.val.compareTo(key) < 0)
             return searchNode(root.right, key);
-
-        // Key is smaller than root's key
         return searchNode(root.left, key);
     }
     
@@ -190,7 +136,6 @@ public class BST<T extends Comparable<T>> {
             for (int j = 0; j < n-i-1; j++)
                 if (arr.get(j).compareTo(arr.get(j+1)) > 0)
                 {
-                    // swap arr[j+1] and arr[j]
                     T temp = arr.get(j);
                     arr.set(j, arr.get(j + 1));
                     arr.set(j+1, temp);
@@ -215,7 +160,6 @@ public class BST<T extends Comparable<T>> {
         root = SortArrToSBT(arr, 0, arr.size() - 1);
     }
 
-//    https://www.geeksforgeeks.org/sorted-array-to-balanced-SBT/
     private Node SortArrToSBT(ArrayList<T> arr, int begin, int end) {       
         
         if (begin > end) {
@@ -232,34 +176,15 @@ public class BST<T extends Comparable<T>> {
         
         return node;
     }
-    
-//    public void LRN(Node tmp) {
-//        if (tmp != null) {
-//            LRN(tmp.left);
-//            LRN(tmp.right);
-//            System.out.print(tmp.val + " ");
-//            System.out.println(isBalanced(root));
-//        }
-//    }
-    
+      
 
     
-    public ArrayList toAray() {
+    public ArrayList toArray() {
         ArrayList<T> tmp = new ArrayList<>();
         toArray(root, tmp);
         return tmp;
     }
     
-//    public T[] toArray() {
-//        MyArray<T> tmp = new MyArray<T>(new T[10]);
-//    }
-//    
-//    private int toArray(Node tmp, MyArray<T> arr, int index) {
-//        toArray(tmp.left, arr, index); 
-//        arr.arr[index] = (T) tmp.val;
-//        toArray(tmp.right,arr, index);
-//        return index + 1;
-//    }
     
     private ArrayList<T> toArray(Node tmp, ArrayList<T> arr) {    
         if (tmp == null) return arr;
@@ -272,25 +197,15 @@ public class BST<T extends Comparable<T>> {
         
     }
     
-//    private int SBTToArr(Node tmp, T arr[], int index) {
-//        if (tmp != null) {
-//            SBTToArr(tmp.left, arr, index);
-//            SBTToArr(tmp.right, arr, index);
-//        }
-//        arr[index] = (T) tmp.val;
-//        return index + 1;
-//    }
     
     public boolean isBalanced(Node node) {
-        int lh; /* for height of left subtree */
+        int lh; 
  
-        int rh; /* for height of right subtree */
+        int rh; 
  
-        /* If tree is empty then return true */
         if (node == null)
             return true;
  
-        /* Get the height of left and right sub trees */
         lh = height(node.left);
         rh = height(node.right);
  
@@ -299,36 +214,35 @@ public class BST<T extends Comparable<T>> {
             && isBalanced(node.right))
             return true;
  
-        /* If we reach here then tree is not height-balanced */
         return false;
+    }
+    
+    public int height() {
+        return height(root);
     }
         
     private int height(Node node) {
-        /* base case tree is empty */
         if (node == null)
             return 0;
  
-        /* If tree is not empty then height = 1 + max of left
-         height and right heights */
         return 1 + Math.max(height(node.left), height(node.right));
     }
     
-    //T[] arr = (T[])new Arrays[10];
     public void LNR(Node tmp) {
         if (tmp != null) {
             LNR(tmp.left);
-            System.out.println(tmp);
+            System.out.print(tmp.val + " ");
             LNR(tmp.right);
         }
     }
     
     public void balanceTree() {
-        ArrayList<T> tmp = toAray();
+        ArrayList<T> tmp = toArray();
         ArrToSBT(tmp);
     }
     @Override
     public String toString() {
-        ArrayList<T> arr = (ArrayList<T>) toAray();
+        ArrayList<T> arr = (ArrayList<T>) toArray();
         String tmp = "";
         for (int i = 0; i < arr.size(); i++) {
             tmp = tmp.concat(arr.get(i).toString() + "\n");
