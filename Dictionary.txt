@@ -1,0 +1,7 @@
+access;Quyền truy cập, sự tiếp cận
+address;Nhắm vào, trình bày
+adequate;Đầy đủ
+affect;Ảnh hưởng
+appreciate;Đánh giá cao, cảm kích
+aspect;Khía cạnh
+atmosphere;Không khí

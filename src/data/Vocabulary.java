@@ -41,7 +41,7 @@ public class Vocabulary implements Comparable<Vocabulary> {
     
     @Override
     public String toString() {
-        return word + ": " + meaning;
+        return word;
     }
 
 }

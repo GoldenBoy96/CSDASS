@@ -30,19 +30,23 @@ public class BST<T extends Comparable<T>> {
             if (p.val.compareTo(tmp.val) <= 0) {
                 if (tmp.left == null) {
                     tmp.left = p;
+                    if (!isBalanced(root)) balanceTree();
                     return;
                 }
                 tmp = tmp.left;
             } else {
                 if (tmp.right == null) {
                     tmp.right = p;
+                    if (!isBalanced(root)) balanceTree();
                     return;
                 }
                 tmp = tmp.right;
             }
-            if (!isBalanced(root)) balanceTree();
+            //System.out.println("Hello");
+            
         }
-        //if (!isBalanced(root)) balanceTree();
+        
+        
     }
 
     public Node rightMost(Node tmp) {
@@ -93,32 +97,38 @@ public class BST<T extends Comparable<T>> {
         return leftMost(tmp);
     }
     
-    public Node deleteNode(Node tmp, T val) {
-        if (isEmpty()) return tmp;       
-        
-        switch (tmp.val.compareTo(val)) {
-            case 1:
-                tmp.left = deleteNode(tmp.left, val);
-                break;
-            case -1:
-                tmp.right = deleteNode(tmp.right, val);
-                break;  
-            default:
-                if (tmp.left == null) {
-                    return tmp.right;
-                } else if (tmp.right == null) {
-                    return tmp.left;
-                }
-                
-                tmp.val = leftMost(tmp).val;
-                tmp.right = deleteNode(tmp.right, (T) tmp.val);
-                break;
-        }
-        
+    public void deleteNode (T val) {
+        deleteNode(root, val);
         if (!isBalanced(root)) balanceTree();
+    }
+    
+    private Node deleteNode(Node tmp, T val) {
+        if (isEmpty()) {
+            return tmp;
+        }
+
+        if (tmp.val.compareTo(val) > 0) {
+
+            tmp.left = deleteNode(tmp.left, val);
+        } else if (tmp.val.compareTo(val) < 0) {
+            tmp.right = deleteNode(tmp.right, val);
+        } else {
+            if (tmp.left == null) {
+                return tmp.right;
+            } else if (tmp.right == null) {
+                return tmp.left;
+            }
+
+            tmp.val = rightMost(tmp.right).val;
+            tmp.right = deleteNode(tmp.right, (T) tmp.val);
+        }
 
         return tmp;
     }
+
+//    public String search(T key) {
+//        return searchNode(root, key).val.toString();
+//    }
     
     public Node search(T key) {
         return searchNode(root, key);
@@ -158,8 +168,10 @@ public class BST<T extends Comparable<T>> {
     
     public void ArrToSBT(ArrayList<T> arr) {
         arr = sortArr(arr);
+        //System.out.println(arr);
         //System.out.println(Arrays.toString(arr));
         root = SortArrToSBT(arr, 0, arr.size() - 1);
+//        LNR(root);
     }
 
     private Node SortArrToSBT(ArrayList<T> arr, int begin, int end) {       
@@ -184,7 +196,7 @@ public class BST<T extends Comparable<T>> {
     public ArrayList toArray() {
         ArrayList<T> tmp = new ArrayList<>();
         toArray(root, tmp);
-        System.out.println(tmp.toString());
+        //System.out.println("hello");
         return tmp;
     }
     
@@ -197,7 +209,7 @@ public class BST<T extends Comparable<T>> {
         toArray(tmp.right,arr); 
         
         
-        
+        //System.out.println(arr);
         return arr;
         
     }
@@ -205,7 +217,9 @@ public class BST<T extends Comparable<T>> {
     public void balanceTree() {
         ArrayList<T> tmp = toArray();
         tmp = sortArr(tmp);
+        //System.out.println("hello");
         ArrToSBT(tmp);
+        //LNR(root);
     }
     
     public boolean isBalanced(Node node) {
@@ -321,6 +335,9 @@ public class BST<T extends Comparable<T>> {
             }
         }
     }
+    
+    
+    
     
     @Override
     public String toString() {

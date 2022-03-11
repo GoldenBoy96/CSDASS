@@ -14,4 +14,8 @@ public class Node<T extends Comparable> {
         this.left = lt;
         this.right = rt;
     }
+    
+    public T getVal() {
+        return val;
+    }
 }

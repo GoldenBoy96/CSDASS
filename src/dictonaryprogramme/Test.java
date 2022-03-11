@@ -20,13 +20,18 @@ public class Test {
 //        D.addVoca("banana", "chuối");
 //        D.addVoca("coconut", "dừa");
 //        D.addVoca("apple", "táo");
-//        
+        
         
         D.readFile("D:\\Desktop\\assignment\\Vocabulary.txt");
         //D.addVoca("coconut", "gà");
         D.printAll();
-        D.b.printTrack(new Vocabulary("access", ""), new Vocabulary("adequate", ""));
-        D.searchVoca("banana");
+        D.printTrack("access", "adequate");
+        //D.searchVoca("access");
+        System.out.println("");
+        D.deleteVoca("access");
+        D.printAll();
+        D.printTrack("access", "adequate");
         //D.writeFile("D:\\Desktop\\assignment\\Vocabulary.txt");
+        
     }
 }
