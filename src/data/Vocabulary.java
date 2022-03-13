@@ -31,7 +31,7 @@ public class Vocabulary implements Comparable<Vocabulary> {
     }
 
     public void showInformation() {
-        System.out.printf("%-20s|%s\n", word, meaning);
+        System.out.printf("|%-20s|%-70s|\n", word, meaning);            // sửa chỗ này
     }
 
     @Override
