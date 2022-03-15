@@ -19,54 +19,7 @@ public class Dictionary {
 
     public BST<Vocabulary> b = new BST();
     
-    public void searchVoca(String key) {
-//        Vocabulary tmp = b.search(new Vocabulary(key, ""));
-        
-        if (b.search(new Vocabulary(key, "")) != null) System.out.println(b.search(new Vocabulary(key, "")).getVal().toString());
-                else System.out.println(key + " is not existed!");
-    }
-    
-    public boolean isVocaExisted(String word) {
-        if (b.search(new Vocabulary(word, "")) == null) return false;
-        return true;
-    }
-    
-    
-    //cần thêm điều kiện kiểm tra xem đã có từ chưa
-    public void addVoca(String word, String meaning) {
-        if (isVocaExisted(word)) {
-            System.out.println(word + " is existed!");
-            return;
-        }
-        b.add(new Vocabulary(word, meaning));
-    }
-    
-    public void deleteVoca(String word) {
-        if (!isVocaExisted(word)) {
-            System.out.println(word + " is not existed!");
-            return;
-        }
-        b.deleteNode(new Vocabulary(word, ""));
-    }
-    
-    public void printAll() {
-        ArrayList<Vocabulary> arr = b.toArray();
-        for (Vocabulary x : arr) {
-            x.showInformation();
-        }
-    }
-    
-//    public void printAll() {
-//        //b.LNR(b.root);
-//        
-//        System.out.println(b.toString());
-//
-//    }
-    
-    public void printTrack(String word1, String word2){
-        b.printTrack(new Vocabulary(word1, ""), new Vocabulary(word2, ""));
-    }
-
+   
     public void readFile(String fileName) {   //done
         try {
             File f = new File(fileName);
@@ -114,6 +67,54 @@ public class Dictionary {
             e.printStackTrace();
         }
     }
+    
+     public void searchVoca(String key) {
+//        Vocabulary tmp = b.search(new Vocabulary(key, ""));
+        
+        if (b.search(new Vocabulary(key, "")) != null) System.out.println(b.search(new Vocabulary(key, "")).getVal().toString());
+                else System.out.println(key + " is not existed!");
+    }
+    
+    public boolean isVocaExisted(String word) {
+        if (b.search(new Vocabulary(word, "")) == null) return false;
+        return true;
+    }
+    
+    
+    public void addVoca(String word, String meaning) {
+        if (isVocaExisted(word)) {
+            System.out.println(word + " is existed!");
+            return;
+        }
+        b.add(new Vocabulary(word, meaning));
+    }
+    
+    public void deleteVoca(String word) {
+        if (!isVocaExisted(word)) {
+            System.out.println(word + " is not existed!");
+            return;
+        }
+        b.deleteNode(new Vocabulary(word, ""));
+    }
+    
+    public void printAll() {
+        ArrayList<Vocabulary> arr = b.toArray();
+        for (Vocabulary x : arr) {
+            x.showInformation();
+        }
+    }
+    
+//    public void printAll() {
+//        //b.LNR(b.root);
+//        
+//        System.out.println(b.toString());
+//
+//    }
+    
+    public void printTrack(String word1, String word2){
+        b.printTrack(new Vocabulary(word1, ""), new Vocabulary(word2, ""));
+    }
+
     
     public void addANewWord() {
         String word, meaning;
