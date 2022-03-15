@@ -68,80 +68,36 @@ public class Dictionary {
         }
     }
     
-     public void searchVoca(String key) {
-//        Vocabulary tmp = b.search(new Vocabulary(key, ""));
-        
-        if (b.search(new Vocabulary(key, "")) != null) System.out.println(b.search(new Vocabulary(key, "")).getVal().toString());
-                else System.out.println(key + " is not existed!");
-    }
-    
-    public boolean isVocaExisted(String word) {
-        if (b.search(new Vocabulary(word, "")) == null) return false;
-        return true;
-    }
-    
-    
-    public void addVoca(String word, String meaning) {
-        if (isVocaExisted(word)) {
-            System.out.println(word + " is existed!");
-            return;
+     public void simpleBalancedTree() {
+        if (!b.isBalanced(b.root)) {
+            b.balanceTree();
         }
-        b.add(new Vocabulary(word, meaning));
-    }
-    
-    public void deleteVoca(String word) {
-        if (!isVocaExisted(word)) {
-            System.out.println(word + " is not existed!");
-            return;
-        }
-        b.deleteNode(new Vocabulary(word, ""));
-    }
-    
-    public void printAll() {
-        ArrayList<Vocabulary> arr = b.toArray();
-        for (Vocabulary x : arr) {
-            x.showInformation();
-        }
-    }
-    
-//    public void printAll() {
-//        //b.LNR(b.root);
-//        
-//        System.out.println(b.toString());
-//
-//    }
-    
-    public void printTrack(String word1, String word2){
-        b.printTrack(new Vocabulary(word1, ""), new Vocabulary(word2, ""));
+        System.out.println("Tree has been balanced.");
     }
 
-    
+    //Hàm thêm một từ mới
     public void addANewWord() {
         String word, meaning;
         word = Tool.getString("Input new word: ", "Word cann't be empty.");
 
-        // loại bỏ Node
-        Node<Vocabulary> tmp = b.search(new Vocabulary(word, word));
+        // Check thử từ đã tồn tại hay chưa
         boolean choice = false;
 
         //Nếu từ đã tồn tại thì hỏi có muốn sửa hay không
-        if (tmp != null) {
-            tmp.getVal().showInformation();
+        if (b.search(new Vocabulary(word, "")) != null) {
+            Vocabulary tmp = (Vocabulary) b.search(new Vocabulary(word, "")).val;
+            tmp.showInformation();
             System.out.println("This word has been existed. Do you want to change its meaning?");
             choice = askYN("Input your choice (Y/N):", "Choice cann't be empty.");
             if (choice) {
                 meaning = Tool.getString("Input word's meaning: ", "Meaning cann't be empty.");
                 Vocabulary v = new Vocabulary(word, meaning);
-                b.add(v);
+                b.search(new Vocabulary(word, "")).val = v;
                 System.out.println("Add new word successfully.");
                 System.out.println("Do you want to continue to add another word?");
                 choice = askYN("Input your choice (Y/N):", "Choice cann't be empty.");
                 if (choice) {
                     addANewWord();
-                } else {
-                    if (!b.isBalanced(b.root)) {
-                        b.balanceTree();
-                    }
                 }
             } else {
                 System.out.println("Add word fail!");
@@ -181,29 +137,37 @@ public class Dictionary {
             }
         }
     }
-    
+
+    //Check xem từ đó có tồn tại hay chưa
+    public boolean isVocaExisted(String word) {
+        if (b.search(new Vocabulary(word, "")) == null) {   // sửa một chút
+            return false;
+        }
+        return true;
+    }
+
     //Xóa một từ
     public void deleteAWord() {
         String word = Tool.getString("Input the word you want to delete: ", "Word cann't be empty!");
         Vocabulary voca = new Vocabulary(word, "");
 
-        //Tìm thử từ đó có trong danh sách không
-        
-
+        //Tìm thử từ đó có trong danh sách không 
         if (b.search(voca) == null) {
             //Nếu chưa có thì báo lỗi
-            System.out.println("Delete fail: Vocabulary doesn't exist.");
+            System.out.println("Delete fail: Vocabulary " + word + " doesn't exist.");
         } else {
-            voca = (Vocabulary) b.search(voca).getVal();
             //Nếu tìm thấy thì show thông tin từ đó ra
+            voca = (Vocabulary) b.search(voca).val;
+            System.out.println("");
             System.out.println("This is the vocabulary you want to delete: ");
             voca.showInformation();
             System.out.println("Are you sure to delete this word?");
             boolean choice = askYN("Input your choice(Y/N): ", "Choice cann't be empty!");
+            System.out.println("");
             if (choice) {
-                b.deleteNode( voca);
-
+                b.deleteNode(voca);
                 System.out.println("Delete voca " + voca.word + " successfully.");
+                System.out.println("");
 
                 //Hỏi có muốn xóa thêm hay không
                 System.out.println("Do you want to delete another voca?");
@@ -230,20 +194,35 @@ public class Dictionary {
         if (b.search(voca) == null) {
             System.out.println("Voca " + word + " doesn't exist!");
         } else {
-            voca = (Vocabulary) b.search(voca).getVal();
+            voca = (Vocabulary) b.search(voca).val;
+            System.out.println("+--------------------+----------------------------------------------------------------------+");
             voca.showInformation();
+            System.out.println("+--------------------+----------------------------------------------------------------------+");
         }
     }
-    
+
     //In ra đường đi giữa 2 node
     public void printTrack() {
         String src, dest;
         src = Tool.getString("Input first word: ", "Word cann't be empty!");
         dest = Tool.getString("Input second word: ", "Word cann't be empty!");
-        Vocabulary nodeSrc = new Vocabulary(src, "");
-        Vocabulary nodeDest = new Vocabulary(dest, "");
+        Vocabulary vocaSrc = new Vocabulary(src, "");
+        Vocabulary vocaDest = new Vocabulary(dest, "");
 
-        b.printTrack(nodeSrc, nodeDest);
+        b.printTrack(vocaSrc, vocaDest);
     }
 
+    //In ra toàn bộ cây
+    public void printAll() {
+        ArrayList<Vocabulary> arr = b.toArray();
+        System.out.println("+--------------------+----------------------------------------------------------------------+");
+        for (Vocabulary x : arr) {
+            x.showInformation();
+        }
+        System.out.println("+--------------------+----------------------------------------------------------------------+");
+    }
+
+    public void printRoot() {
+        System.out.println(b.root.val);
+    }
 }
