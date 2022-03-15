@@ -94,6 +94,7 @@ public class Dictionary {
                 Vocabulary v = new Vocabulary(word, meaning);
                 b.search(new Vocabulary(word, "")).val = v;
                 System.out.println("Add new word successfully.");
+                v.showInformation();
                 System.out.println("Do you want to continue to add another word?");
                 choice = askYN("Input your choice (Y/N):", "Choice cann't be empty.");
                 if (choice) {
@@ -109,6 +110,7 @@ public class Dictionary {
             Vocabulary v = new Vocabulary(word, meaning);
             b.add(v);
             System.out.println("Add new word successfully.");
+            v.showInformation();
             System.out.println("Do you want to continue to add another word?");
             choice = askYN("Input your choice (Y/N):", "Choice cann't be empty.");
             if (choice) {
