@@ -1,9 +1,5 @@
 package data;
 
-/**
- *
- * @author tri
- */
 public class Vocabulary implements Comparable<Vocabulary> {
 
     protected String word;
@@ -31,7 +27,7 @@ public class Vocabulary implements Comparable<Vocabulary> {
     }
 
     public void showInformation() {
-        System.out.printf("|%-20s|%-70s|\n", word, meaning);            // sửa chỗ này
+        System.out.printf("|%-20s|%-70s|\n", word, meaning);            
     }
 
     @Override
