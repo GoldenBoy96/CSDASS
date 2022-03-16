@@ -7,24 +7,29 @@ import tool.GetDirectory;
 public class Main {
 
     public static void main(String[] args) {
+        
         String filePath = GetDirectory.DIR + "\\Dictionary.txt";
-        System.out.println(filePath);
+        //System.out.println(filePath);
         Menu menu = new Menu();
-        menu.addNewOption("1. Add A Word");
-        menu.addNewOption("2. Delete A Word");
-        menu.addNewOption("3. Search A Word");
-        menu.addNewOption("4. Print Path");
-        menu.addNewOption("5. Show Word List");
-        menu.addNewOption("6. Quit");
+        menu.addNewOption(String.format("|%-52s|", "1. Add A Word"));
+        menu.addNewOption(String.format("|%-52s|", "2. Delete A Word"));
+        menu.addNewOption(String.format("|%-52s|", "3. Search A Word"));
+        menu.addNewOption(String.format("|%-52s|", "4. Print Path"));
+        menu.addNewOption(String.format("|%-52s|", "5. Show Word List"));
+        menu.addNewOption(String.format("|%-52s|", "6. Quit"));
 
         Dictionary d = new Dictionary();
         d.readFile(filePath);
         int choice;
         do {
-            System.out.println("------------Welcom to Dictionary Management Program-------------");
+            System.out.println("+----------------------------------------------------+");
+            System.out.println("|           Dictionary Management Program            |");
+            System.out.println("+----------------------------------------------------+");
             menu.printMenu();
-            System.out.println("----------------------------------------------------------------");
+            System.out.println("+----------------------------------------------------+");
+            System.out.println("");
             choice = menu.getChoice();
+            System.out.println("");
             switch (choice) {
                 case 1:
                     d.addANewWord();
@@ -46,6 +51,7 @@ public class Main {
                 case 6:
                     break;
             }
+            System.out.println("");
         } while (choice != 6);
     }
 
