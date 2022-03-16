@@ -2,10 +2,6 @@ package tool;
 
 import java.util.Scanner;
 
-/**
- *
- * @author tri
- */
 public class Tool {
 
     private static Scanner sc = new Scanner(System.in);
