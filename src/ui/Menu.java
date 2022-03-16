@@ -3,10 +3,6 @@ package ui;
 import java.util.ArrayList;
 import tool.Tool;
 
-/**
- *
- * @author tri
- */
 public class Menu {
     private ArrayList<String> optionList = new ArrayList<String>();
 
